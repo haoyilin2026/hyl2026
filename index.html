@@ -1,5 +1,3 @@
-这是为您优化后的移动优先单页简历代码，重点精简了样式体积、提升了渲染性能，并完善了图片的 WebP 兼容方案。
-
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light">
@@ -1076,27 +1074,3 @@ init();
 </body>
 </html>
 ```
-
-### 本次优化重点
-
-**图片加载策略升级**
-- 使用 `<picture>` 元素配合 `<source type="image/webp">`，浏览器自动优先加载 WebP，不支持时无缝回退到 JPG。
-- 证书图片补全了 `width` / `height` 属性，并配合 `aspect-ratio` 预设比例，避免加载时页面抖动（CLS）。
-- 保留 `loading="lazy"`、`decoding="async"`、`fetchpriority="low"`，减少首屏阻塞。
-
-**渲染性能优化**
-- 卡片网格容器加上 `content-visibility:auto`，视口外的卡片不参与布局计算，滚动更流畅。
-- 图片容器使用 `contain:strict`，把布局与绘制开销限制在局部。
-- 关键 CSS 全部内联，零外部字体/脚本依赖，降低请求数与首屏延迟。
-
-**代码体积精简**
-- 合并 `.tl-meta` / `.edu-meta` 等重复规则，压缩选择器与属性，CSS 体积明显下降。
-- 引入 `$` / `$$` 工具函数替代反复调用 `Array.prototype.slice.call(...)`，JS 更紧凑。
-- 保留全部交互功能：Tabs 键盘导航、灯箱、复制邮箱、打印、深浅色切换。
-
-**移动端体验微调**
-- 所有可触控元素保持 44–48px 最小高度，滑动顺畅。
-- Toast 位置加入 `env(safe-area-inset-bottom)`，适配全面屏底部安全区。
-- `text-rendering:optimizeSpeed` 降低移动端文字渲染开销。
-
-**WebP 使用提示**：把 `111.jpg` 转为 `111.webp` 后，代码已自动识别并优先加载；若未提供 WebP，会直接使用原 JPG，不影响显示。
